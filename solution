@@ -1,0 +1,33 @@
+def caesar_cipher(message, shift, mode='encode'):
+    if mode == 'decode':
+        shift = -shift
+
+    final_message = ""
+    
+    for char in message:
+        if char.isalpha():
+            start = ord('a')
+            if char.isupper():
+                start = ord('A')
+            
+            char_code = ord(char)
+            position_in_alphabet = char_code - start
+            new_position = (position_in_alphabet + shift) % 26
+            new_char_code = start + new_position
+            new_char = chr(new_char_code)
+            
+            final_message += new_char
+        else:
+            final_message += char
+            
+    return final_message
+
+secret_message = "Hello, World! This is a test."
+shift_amount = 3
+
+encoded = caesar_cipher(secret_message, shift_amount, mode='encode')
+print(f"Original Message:  {secret_message}")
+print(f"Encoded Message:   {encoded}")
+
+decoded = caesar_cipher(encoded, shift_amount, mode='decode')
+print(f"Decoded Message:   {decoded}")
